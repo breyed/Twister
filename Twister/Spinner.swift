@@ -1,15 +1,16 @@
-import SwiftUI
 import AVFoundation
+import SwiftUI
 
 struct Spinner: View {
-    let synthesizer = AVSpeechSynthesizer()
-    @State var color = Color.red
-    @State var member = "Left foot"
+    let speechSynthesizer: AVSpeechSynthesizer
+    @State var color = Color.gray
+    @State var member = "Twister Spinner"
 
     var body: some View {
         VStack {
             Text(member)
-                .font(.largeTitle).bold()
+                .font(.largeTitle)
+                .bold()
 
             Circle()
                 .frame(width: 140)
@@ -44,12 +45,13 @@ struct Spinner: View {
         utterance.rate = Float.random(in: 0.2 ..< 0.8)
         utterance.pitchMultiplier = Float.random(in: 0.5 ..< 1.5)
         utterance.voice = AVSpeechSynthesisVoice(language: "en-" + countries.randomElement()!)
-        synthesizer.speak(utterance)
+        speechSynthesizer.stopSpeaking(at: .word)
+        speechSynthesizer.speak(utterance)
     }
 }
 
 struct Spinner_Previews: PreviewProvider {
     static var previews: some View {
-        Spinner()
+        Spinner(speechSynthesizer: AVSpeechSynthesizer())
     }
 }

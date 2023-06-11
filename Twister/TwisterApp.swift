@@ -1,17 +1,13 @@
-//
-//  TwisterApp.swift
-//  Twister
-//
-//  Created by Edward Brey on 6/11/23.
-//
-
+import AVFoundation
 import SwiftUI
 
 @main
 struct TwisterApp: App {
+    let speechSynthesizer = AVSpeechSynthesizer()
+
     var body: some Scene {
         WindowGroup {
-            Spinner()
+            Spinner(speechSynthesizer: speechSynthesizer)
         }
     }
 }
