@@ -6,7 +6,7 @@ struct TwisterApp: App {
     let speechSynthesizer = AVSpeechSynthesizer()
     
     init() {
-        try? AVAudioSession.sharedInstance().setCategory(.ambient)
+        try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
     }
 
     var body: some Scene {
