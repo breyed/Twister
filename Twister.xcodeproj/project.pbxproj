@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3F0999D82A3636A200A10898 /* TwisterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0999D72A3636A200A10898 /* TwisterApp.swift */; };
-		3F0999DA2A3636A200A10898 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0999D92A3636A200A10898 /* ContentView.swift */; };
+		3F0999DA2A3636A200A10898 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F0999D92A3636A200A10898 /* Spinner.swift */; };
 		3F0999DC2A3636A300A10898 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0999DB2A3636A300A10898 /* Assets.xcassets */; };
 		3F0999DF2A3636A300A10898 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F0999DE2A3636A300A10898 /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -16,7 +16,7 @@
 /* Begin PBXFileReference section */
 		3F0999D42A3636A200A10898 /* Twister.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twister.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0999D72A3636A200A10898 /* TwisterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwisterApp.swift; sourceTree = "<group>"; };
-		3F0999D92A3636A200A10898 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		3F0999D92A3636A200A10898 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
 		3F0999DB2A3636A300A10898 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F0999DE2A3636A300A10898 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -52,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				3F0999D72A3636A200A10898 /* TwisterApp.swift */,
-				3F0999D92A3636A200A10898 /* ContentView.swift */,
+				3F0999D92A3636A200A10898 /* Spinner.swift */,
 				3F0999DB2A3636A300A10898 /* Assets.xcassets */,
 				3F0999DD2A3636A300A10898 /* Preview Content */,
 			);
@@ -137,7 +137,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3F0999DA2A3636A200A10898 /* ContentView.swift in Sources */,
+				3F0999DA2A3636A200A10898 /* Spinner.swift in Sources */,
 				3F0999D82A3636A200A10898 /* TwisterApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
