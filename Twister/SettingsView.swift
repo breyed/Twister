@@ -18,6 +18,8 @@ struct SettingsView: View {
 			Toggle(isOn: $model.randomRatesAndPitches) { Text("Random rates and pitches") }
 
 			Toggle(isOn: $model.sillySayings) { Text("Silly sayings") }
+			
+			// When changing settings, remember to adjust the popover size in MainView.
 		}
 		.onDisappear{ try? UserDefaults.standard.set(PropertyListEncoder().encode(model), forKey: "Model") }
 	}
