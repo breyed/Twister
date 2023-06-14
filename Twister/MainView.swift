@@ -19,7 +19,7 @@ struct MainView: View {
 		if UIDevice.current.userInterfaceIdiom == .pad {
 			content.popover(isPresented: $isSettingsViewPresented) {
 				SettingsView()
-					.frame(width: 400, height: 300) // Height leaves room for conditional "Every x seconds" line.
+					.frame(width: 400, height: 336) // Height leaves room for conditional "Every x seconds" line.
 			}
 		} else {
 			content.sheet(isPresented: $isSettingsViewPresented) {

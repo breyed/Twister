@@ -5,19 +5,20 @@ struct SettingsView: View {
 
 	var body: some View {
 		Form {
-			VStack {
-				Toggle(isOn: $model.autoSpin) { Text("Spin automatically")}
+			Section("Timer") {
+				Toggle(isOn: $model.autoSpin.animation()) { Text("Spin automatically") }
 				if (model.autoSpin) {
 					Stepper("Every \(model.autoSpinSeconds) seconds", value: $model.autoSpinSeconds, in: 1...30, step: 1) {_ in}
 				}
 			}
-			.animation(.easeOut, value: model.autoSpin)
 
-			Toggle(isOn: $model.randomVoices) { Text("Random voices") }
-
-			Toggle(isOn: $model.randomRatesAndPitches) { Text("Random rates and pitches") }
-
-			Toggle(isOn: $model.sillySayings) { Text("Silly sayings") }
+			Section("Speech") {
+				Toggle(isOn: $model.randomVoices) { Text("Random voices") }
+				
+				Toggle(isOn: $model.randomRatesAndPitches) { Text("Random rates and pitches") }
+				
+				Toggle(isOn: $model.sillySayings) { Text("Silly sayings") }
+			}
 			
 			// When changing settings, remember to adjust the popover size in MainView.
 		}
