@@ -1,17 +1,13 @@
-import AVFoundation
 import SwiftUI
 
 @main
 struct TwisterApp: App {
-	let speechSynthesizer = AVSpeechSynthesizer()
-	
-	init() {
-		try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
-	}
+	@StateObject private var model = (try? PropertyListDecoder().decode(Model.self, from: UserDefaults.standard.data(forKey: "Model") ?? .init())) ?? Model()
+	@Environment(\.scenePhase) private var scenePhase
 
 	var body: some Scene {
 		WindowGroup {
-			Spinner(speechSynthesizer: speechSynthesizer)
+			MainView().environmentObject(model)
 		}
 	}
 }
