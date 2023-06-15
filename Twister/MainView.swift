@@ -1,15 +1,19 @@
 import SwiftUI
 
 struct MainView: View {
+	@EnvironmentObject private var model: Model
 	@State private var isSettingsViewPresented = false
 	
 	var body: some View {
 		NavigationStack {
 			SpinnerView()
 				.toolbar {
-					withSettingsSheetOrPopover(Button(action: { isSettingsViewPresented = true}) {
-						Image(systemName: "gear")
-					})
+					ToolbarItem(placement: .navigationBarLeading) {
+						Button("New Game") { withAnimation { model.resetGame() } }
+					}
+					ToolbarItem(placement: .navigationBarTrailing) {
+						withSettingsSheetOrPopover(Button("Settings") { isSettingsViewPresented = true})
+					}
 				}
 		}
 	}

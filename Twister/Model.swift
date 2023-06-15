@@ -1,8 +1,14 @@
 import Foundation
 import AVFoundation
+import SwiftUI
 
 final class Model: ObservableObject {
 	private let speechSynthesizer = AVSpeechSynthesizer()
+
+	@Published var spins = 0
+	@Published var color = Color.gray
+	@Published var member = ""
+
 	@Published var autoSpin = false
 	@Published var autoSpinSeconds = 5
 	@Published var randomVoices = false
@@ -12,6 +18,13 @@ final class Model: ObservableObject {
 
 	init() {
 		try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
+		resetGame()
+	}
+	
+	func resetGame() {
+		spins = 0
+		color = .gray
+		member = "Twister Spinner"
 	}
 
 	func speak(_ text: String) {

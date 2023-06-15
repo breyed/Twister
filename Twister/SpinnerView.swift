@@ -3,21 +3,23 @@ import SwiftUI
 
 struct SpinnerView: View {
 	@EnvironmentObject private var model: Model
-	@State private var color = Color.gray
-	@State private var member = "Twister Spinner"
 	@State private var autoSpinTask: Task<(), Error>?
 
 	var body: some View {
-		VStack {
-			Text(member)
+		VStack(spacing: 30) {
+			Text("Spin \(model.spins)")
+				.font(.title2)
+				.foregroundColor(.gray)
+				.opacity(model.spins == 0 ? 0 : 1)
+			
+			Text(model.member)
 				.font(.largeTitle)
 				.bold()
 
 			Circle()
-				.foregroundColor(color)
+				.foregroundColor(model.color)
 				.frame(width: 140)
-				.padding(.top, 30)
-				.padding(.bottom, 100)
+				.padding(.bottom, 40)
 
 			Button(action: spin) {
 				HStack {
@@ -34,7 +36,6 @@ struct SpinnerView: View {
 					Text("\(voice.name) – \(Locale.current.localizedString(forIdentifier: voice.language) ?? voice.language)")
 				}
 				.foregroundColor(.gray)
-				.padding(.top, 30)
 			}
 		}
 	}
@@ -42,12 +43,13 @@ struct SpinnerView: View {
 	private func spin() {
 		// Show the next move.
 		withAnimation {
-			color = [Color.red, Color.blue, Color.yellow, Color.green].randomElement()!
-			member = ["Left foot", "Right foot", "Left hand", "Right hand"].randomElement()!
+			model.color = [Color.red, Color.blue, Color.yellow, Color.green].randomElement()!
+			model.member = ["Left foot", "Right foot", "Left hand", "Right hand"].randomElement()!
+			model.spins += 1
 		}
-		
+
 		// Speak the next move.
-		var speech = member + " " + color.description
+		var speech = model.member + " " + model.color.description
 		if model.sillySayings {
 			let goofyText = getGoofyText(startingText: speech)
 			if goofyText != "" {
