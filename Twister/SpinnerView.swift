@@ -84,6 +84,9 @@ struct SpinnerView: View {
 		if startingText == "Right hand red" {
 			return "Knock knock. Who's there? Boo. Boo who? Don't cry. It's just a joke."
 		}
+		if startingText == "Left foot green" {
+			return "By the way, you're awesomly bad at twister!"
+		}
 		return ""
 	}
 }
