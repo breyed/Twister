@@ -20,6 +20,10 @@ struct SettingsView: View {
 				Toggle(isOn: $model.sillySayings) { Text("Silly sayings") }
 			}
 			
+			Section("Color") {
+				Toggle(isOn: $model.goofyColors) { Text("Goofy colors") }
+			}
+			
 			// When changing settings, remember to adjust the popover size in MainView.
 		}
 		.onDisappear{ try? UserDefaults.standard.set(PropertyListEncoder().encode(model), forKey: "Model") }

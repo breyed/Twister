@@ -43,8 +43,13 @@ struct SpinnerView: View {
 	private func spin() {
 		// Show the next move.
 		withAnimation {
+			model.member = [ "Left foot", "Right foot", "Left hand", "Right hand"].randomElement()!
+
 			model.color = [Color.red, Color.blue, Color.yellow, Color.green].randomElement()!
-			model.member = ["Left foot", "Right foot", "Left hand", "Right hand"].randomElement()!
+			if model.color == .blue && model.member == "Right hand" && model.goofyColors {
+				model.color = .teal
+			}
+						
 			model.spins += 1
 		}
 

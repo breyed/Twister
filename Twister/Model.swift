@@ -15,6 +15,7 @@ final class Model: ObservableObject {
 	@Published var randomRatesAndPitches = false
 	@Published var sillySayings = false
 	@Published var voice: AVSpeechSynthesisVoice?
+	@Published var goofyColors = false
 
 	init() {
 		try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
@@ -58,6 +59,7 @@ extension Model: Codable {
 		case randomVoices
 		case randomRatesAndPitches
 		case sillySayings
+		case goofyColors
 	}
 	
 	convenience init(from decoder: Decoder) {
@@ -69,6 +71,7 @@ extension Model: Codable {
 			randomVoices = try values.decode(Bool.self, forKey: .randomVoices)
 			randomRatesAndPitches = try values.decode(Bool.self, forKey: .randomRatesAndPitches)
 			sillySayings = try values.decode(Bool.self, forKey: .sillySayings)
+			goofyColors = try values.decode(Bool.self, forKey: .goofyColors)
 		} catch {}
 	}
 	
@@ -79,5 +82,6 @@ extension Model: Codable {
 		try container.encode(randomVoices, forKey: .randomVoices)
 		try container.encode(randomRatesAndPitches, forKey: .randomRatesAndPitches)
 		try container.encode(sillySayings, forKey: .sillySayings)
+		try container.encode(goofyColors, forKey: .goofyColors)
 	}
 }
