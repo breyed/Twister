@@ -6,8 +6,9 @@ final class Model: ObservableObject {
 	private let speechSynthesizer = AVSpeechSynthesizer()
 
 	@Published var spins = 0
-	@Published var color = Color.gray
 	@Published var member = ""
+	@Published var color = Color.gray
+	var colorName = ""
 
 	@Published var autoSpin = false
 	@Published var autoSpinSeconds = 5

@@ -43,25 +43,23 @@ struct SpinnerView: View {
 	private func spin() {
 		// Show the next move.
 		withAnimation {
-			model.member = [ "Left foot", "Right foot", "Left hand", "Right hand"].randomElement()!
-
+			model.member = ["Left foot", "Right foot", "Left hand", "Right hand"].randomElement()!
 			model.color = [Color.red, Color.blue, Color.yellow, Color.green].randomElement()!
-			if model.color == .blue && model.member == "Right hand" && model.goofyColors {
-				model.color = .teal
+			model.colorName = model.color.description
+
+			if model.goofyColors {
+				makeColorGoofy()
 			}
 						
 			model.spins += 1
 		}
 
 		// Speak the next move.
-		var speech = model.member + " " + model.color.description
-		if model.sillySayings {
-			let goofyText = getGoofyText(startingText: speech)
-			if goofyText != "" {
-				speech += ". " + goofyText
-			}
+		var action = model.member + " " + model.colorName
+		if model.sillySayings, let sillySaying = sillySaying(action: action) {
+			action += ". " + sillySaying
 		}
-		model.speak(speech)
+		model.speak(action)
 		
 		// Spin again if autospinning.
 		autoSpinTask?.cancel()
@@ -73,26 +71,27 @@ struct SpinnerView: View {
 		}
 	}
 	
-	private func getGoofyText(startingText: String) -> String {
-		if startingText == "Right hand blue" {
-			return "By the way, Happy Birthday River!"
+	private func makeColorGoofy() {
+		if model.member == "Right hand" && model.color == .blue {
+			model.color = .teal
+			model.colorName = Color.teal.description
 		}
-		if startingText == "Left hand red" {
-			return "What do you call a fish with no eyes?  A fsh."
+		if model.member == "Right hand" && model.color == .green {
+			model.color = Color("pickle")
+			model.colorName = "pickle"
 		}
-		if startingText == "Left foot yellow" {
-			return "Ghivvle gavvle."
+	}
+	
+	private func sillySaying(action: String) -> String? {
+		switch (action) {
+		case "Right hand blue": return "By the way, Happy Birthday River!"
+		case "Left hand red": return "What do you call a fish with no eyes?  A fsh."
+		case "Left foot yellow": return "Ghivvle gavvle."
+		case "Right hand green": return "Why do ducks have feathers? To cover their butt quack."
+		case "Right hand red": return "Knock knock. Who's there? Boo. Boo who? Don't cry. It's just a joke."
+		case "Left foot green": return "By the way, you're awesomly bad at twister!"
+		default: return nil
 		}
-		if startingText == "Right hand green" {
-			return "Why do ducks have feathers? To cover their butt quack."
-		}
-		if startingText == "Right hand red" {
-			return "Knock knock. Who's there? Boo. Boo who? Don't cry. It's just a joke."
-		}
-		if startingText == "Left foot green" {
-			return "By the way, you're awesomly bad at twister!"
-		}
-		return ""
 	}
 }
 
