@@ -80,6 +80,22 @@ struct SpinnerView: View {
 			model.color = Color("pickle")
 			model.colorName = "pickle"
 		}
+		if model.member == "Left foot" && model.color == .green {
+			model.color = Color("broccoli")
+			model.colorName = "broccoli"
+		}
+		if model.member == "Right foot" && model.color == .green {
+			model.color = Color("pea")
+			model.colorName = "pea pod"
+		}
+		if model.member == "Left hand" && model.color == .red {
+			model.color = Color("tomato")
+			model.colorName = "tomato"
+		}
+		if model.member == "Right hand" && model.color == .red {
+			model.color = Color("cherry")
+			model.colorName = "cherry"
+		}
 	}
 	
 	private func sillySaying(action: String) -> String? {
