@@ -12,17 +12,19 @@ final class Model: ObservableObject {
 
 	@Published var autoSpin = false
 	@Published var autoSpinSeconds = 5
-	@Published var randomVoices = false
+	@Published var funVoices = false
+	@Published var randomVoices = true
 	@Published var randomRatesAndPitches = false
 	@Published var sillySayings = false
-	@Published var voice: AVSpeechSynthesisVoice?
 	@Published var goofyColors = false
+	@Published var voice: AVSpeechSynthesisVoice // Only applies if using fun voices.
 
 	init() {
 		try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
+		voice = AVSpeechSynthesisVoice(language: Locale.current.language.maximalIdentifier) ?? AVSpeechSynthesisVoice()
 		resetGame()
 	}
-	
+
 	func resetGame() {
 		spins = 0
 		color = .gray
@@ -30,19 +32,19 @@ final class Model: ObservableObject {
 	}
 
 	func speak(_ text: String) {
-		let utterance = AVSpeechUtterance(string: text)
-
 		if randomVoices {
-			voice = AVSpeechSynthesisVoice.speechVoices().randomElement()
-			utterance.voice = voice
-		} else {
-			voice = nil
+			voice = AVSpeechSynthesisVoice.speechVoices().randomElement() ?? AVSpeechSynthesisVoice()
+		}
+
+		let utterance = AVSpeechUtterance(string: text)
+		utterance.voice = voice
+		if utterance.voice == nil {
 			let language = Locale.current.language
 			if language.languageCode?.identifier == "en", language.region == "US" {
-				utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+				utterance.voice = AVSpeechSynthesisVoice(language: "en-GB") // Uses British over American because it sounds better.
 			}
 		}
-		
+
 		if randomRatesAndPitches {
 			utterance.rate = Float.random(in: 0.2 ..< 0.8)
 			utterance.pitchMultiplier = Float.random(in: 0.8 ..< 1.2)
@@ -57,29 +59,32 @@ extension Model: Codable {
 	enum CodingKeys: String, CodingKey {
 		case autoSpin
 		case autoSpinSeconds
+		case funVoices
 		case randomVoices
 		case randomRatesAndPitches
 		case sillySayings
 		case goofyColors
 	}
-	
+
 	convenience init(from decoder: Decoder) {
 		self.init()
 		do {
 			let values = try decoder.container(keyedBy: CodingKeys.self)
 			autoSpin = try values.decode(Bool.self, forKey: .autoSpin)
 			autoSpinSeconds = try values.decode(Int.self, forKey: .autoSpinSeconds)
+			funVoices = try values.decode(Bool.self, forKey: .funVoices)
 			randomVoices = try values.decode(Bool.self, forKey: .randomVoices)
 			randomRatesAndPitches = try values.decode(Bool.self, forKey: .randomRatesAndPitches)
 			sillySayings = try values.decode(Bool.self, forKey: .sillySayings)
 			goofyColors = try values.decode(Bool.self, forKey: .goofyColors)
 		} catch {}
 	}
-	
+
 	func encode(to encoder: Encoder) throws {
 		var container = encoder.container(keyedBy: CodingKeys.self)
 		try container.encode(autoSpin, forKey: .autoSpin)
 		try container.encode(autoSpinSeconds, forKey: .autoSpinSeconds)
+		try container.encode(funVoices, forKey: .funVoices)
 		try container.encode(randomVoices, forKey: .randomVoices)
 		try container.encode(randomRatesAndPitches, forKey: .randomRatesAndPitches)
 		try container.encode(sillySayings, forKey: .sillySayings)

@@ -13,8 +13,11 @@ struct SettingsView: View {
 			}
 
 			Section("Speech") {
-				Toggle(isOn: $model.randomVoices) { Text("Random voices") }
-				
+				Toggle(isOn: $model.funVoices.animation()) { Text("Fun voices") }
+				if (model.funVoices) {
+					Toggle(isOn: $model.randomVoices.animation()) { Text("Random voices") }
+				}
+
 				Toggle(isOn: $model.randomRatesAndPitches) { Text("Random rates and pitches") }
 				
 				Toggle(isOn: $model.sillySayings) { Text("Silly sayings") }

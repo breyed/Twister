@@ -3,7 +3,7 @@ import SwiftUI
 
 struct SpinnerView: View {
 	@EnvironmentObject private var model: Model
-	@State private var autoSpinTask: Task<(), Error>?
+	@State private var autoSpinTask: Task<Void, Error>?
 
 	var body: some View {
 		VStack(spacing: 30) {
@@ -11,7 +11,7 @@ struct SpinnerView: View {
 				.font(.title2)
 				.foregroundColor(.gray)
 				.opacity(model.spins == 0 ? 0 : 1)
-			
+
 			Text(model.member)
 				.font(.largeTitle)
 				.bold()
@@ -30,14 +30,26 @@ struct SpinnerView: View {
 				}
 			}
 
-			if let voice = model.voice {
+			if model.funVoices {
 				HStack {
 					Image(systemName: "bubble.left")
-					Text("\(voice.name) – \(Locale.current.localizedString(forIdentifier: voice.language) ?? voice.language)")
+					if model.randomVoices {
+						Text(voiceDescription(model.voice))
+					} else {
+						Picker("Voice", selection: $model.voice) {
+							ForEach(AVSpeechSynthesisVoice.speechVoices(), id: \.identifier) { voice in
+								Text(voiceDescription(voice)).tag(voice)
+							}
+						}
+					}
 				}
 				.foregroundColor(.gray)
 			}
 		}
+	}
+
+	private func voiceDescription(_ voice: AVSpeechSynthesisVoice) -> String {
+		"\(Locale.current.localizedString(forIdentifier: voice.language) ?? voice.language) – \(voice.name)"
 	}
 
 	private func spin() {
@@ -50,7 +62,7 @@ struct SpinnerView: View {
 			if model.goofyColors {
 				makeColorGoofy()
 			}
-						
+
 			model.spins += 1
 		}
 
@@ -60,7 +72,7 @@ struct SpinnerView: View {
 			action += ". " + sillySaying
 		}
 		model.speak(action)
-		
+
 		// Spin again if autospinning.
 		autoSpinTask?.cancel()
 		if model.autoSpin {
@@ -70,11 +82,15 @@ struct SpinnerView: View {
 			}
 		}
 	}
-	
+
 	private func makeColorGoofy() {
 		if model.member == "Right hand" && model.color == .blue {
 			model.color = .teal
 			model.colorName = Color.teal.description
+		}
+		if model.member == "Left hand" && model.color == .green {
+			model.color = Color("avocado")
+			model.colorName = "avocado"
 		}
 		if model.member == "Right hand" && model.color == .green {
 			model.color = Color("pickle")
@@ -96,10 +112,14 @@ struct SpinnerView: View {
 			model.color = Color("cherry")
 			model.colorName = "cherry"
 		}
+		if model.member == "Right hand" && model.color == .yellow {
+			model.color = Color("banana")
+			model.colorName = "banana"
+		}
 	}
-	
+
 	private func sillySaying(action: String) -> String? {
-		switch (action) {
+		switch action {
 		case "Right hand blue": return "By the way, Happy Birthday River!"
 		case "Left hand red": return "What do you call a fish with no eyes?  A fsh."
 		case "Left foot yellow": return "Ghivvle gavvle."
