@@ -4,7 +4,7 @@ import SwiftUI
 struct MainView: View {
 	@EnvironmentObject private var model: Model
 	@State private var isSettingsViewPresented = false
-	
+
 	var body: some View {
 		NavigationStack {
 			SpinnerView()
@@ -13,7 +13,7 @@ struct MainView: View {
 						Button("New Game") { withAnimation { model.resetGame() } }
 					}
 					ToolbarItem(placement: .navigationBarTrailing) {
-						withSettingsSheetOrPopover(Button("Settings") { isSettingsViewPresented = true})
+						withSettingsSheetOrPopover(Button("Settings") { isSettingsViewPresented = true })
 					}
 				}
 		}
@@ -25,6 +25,7 @@ struct MainView: View {
 			content.popover(isPresented: $isSettingsViewPresented) {
 				SettingsView()
 					.frame(width: 400, height: 390) // Height leaves room for conditional "Every x seconds" line.
+				// Tried .presentationCompactAdaptation(.popover) here with .scrollDisabled(true) on the Form, but that caused the popover height to be too small.
 			}
 		} else {
 			content.sheet(isPresented: $isSettingsViewPresented) {

@@ -1,5 +1,5 @@
-import Foundation
 import AVFoundation
+import Foundation
 import SwiftUI
 
 final class Model: ObservableObject {
@@ -13,7 +13,7 @@ final class Model: ObservableObject {
 	@Published var autoSpin = false
 	@Published var autoSpinSeconds = 5
 	@Published var funVoices = false
-	@Published var randomVoices = true
+	@Published var randomVoices = false
 	@Published var randomRatesAndPitches = false
 	@Published var sillySayings = false
 	@Published var goofyColors = false
@@ -21,7 +21,7 @@ final class Model: ObservableObject {
 
 	init() {
 		try? AVAudioSession.sharedInstance().setCategory(.soloAmbient)
-		voice = AVSpeechSynthesisVoice(language: Locale.current.language.maximalIdentifier) ?? AVSpeechSynthesisVoice()
+		voice = Model.defaultVoice
 		resetGame()
 	}
 
@@ -32,19 +32,12 @@ final class Model: ObservableObject {
 	}
 
 	func speak(_ text: String) {
-		if randomVoices {
+		if funVoices, randomVoices {
 			voice = AVSpeechSynthesisVoice.speechVoices().randomElement() ?? AVSpeechSynthesisVoice()
 		}
 
 		let utterance = AVSpeechUtterance(string: text)
-		utterance.voice = voice
-		if utterance.voice == nil {
-			let language = Locale.current.language
-			if language.languageCode?.identifier == "en", language.region == "US" {
-				utterance.voice = AVSpeechSynthesisVoice(language: "en-GB") // Uses British over American because it sounds better.
-			}
-		}
-
+		utterance.voice = funVoices ? voice : Model.defaultVoice
 		if randomRatesAndPitches {
 			utterance.rate = Float.random(in: 0.2 ..< 0.8)
 			utterance.pitchMultiplier = Float.random(in: 0.8 ..< 1.2)
@@ -53,6 +46,14 @@ final class Model: ObservableObject {
 		speechSynthesizer.stopSpeaking(at: .word)
 		speechSynthesizer.speak(utterance)
 	}
+
+	/// // Gets the voice for the current locale. Uses British over American because it sounds better.
+	private static let defaultVoice: AVSpeechSynthesisVoice = {
+		let language = Locale.current.language
+		return (language.languageCode?.identifier == "en" && language.region == "US" ? AVSpeechSynthesisVoice(language: "en-GB") :
+			AVSpeechSynthesisVoice(language: Locale.current.language.maximalIdentifier))
+			?? AVSpeechSynthesisVoice()
+	}()
 }
 
 extension Model: Codable {
