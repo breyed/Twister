@@ -7,6 +7,8 @@ struct SpinnerView: View {
 
 	var body: some View {
 		VStack(spacing: 30) {
+			Spacer()
+
 			Text("Spin \(model.spins)")
 				.font(.title2)
 				.foregroundColor(.gray)
@@ -30,6 +32,8 @@ struct SpinnerView: View {
 				}
 			}
 
+			Spacer()
+
 			if model.funVoices {
 				HStack {
 					Image(systemName: "bubble.left")
@@ -44,6 +48,7 @@ struct SpinnerView: View {
 					}
 				}
 				.foregroundColor(.gray)
+				.padding()
 			}
 		}
 	}
