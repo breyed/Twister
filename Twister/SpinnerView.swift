@@ -45,6 +45,8 @@ struct SpinnerView: View {
 								Text(voiceDescription(voice)).tag(voice)
 							}
 						}
+						.pickerStyle(.wheel)
+						.frame(width: 400)
 					}
 				}
 				.foregroundColor(.gray)
