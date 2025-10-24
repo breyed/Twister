@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs/>
+<clipPath id="ArtboardFrame">
+<rect height="1024" width="1024" x="0" y="0"/>
+</clipPath>
+<g clip-path="url(#ArtboardFrame)" id="Layer-2">
+<path d="M0 0L1024 0L1024 1024L0 1024L0 0Z" fill="#ffffff" fill-rule="nonzero" opacity="1" stroke="none"/>
+</g>
+<g id="Layer-1">
+<path d="M120 290C120 196.112 196.112 120 290 120C383.888 120 460 196.112 460 290C460 383.888 383.888 460 290 460C196.112 460 120 383.888 120 290Z" fill="#68c40c" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M564 290C564 196.112 640.112 120 734 120C827.888 120 904 196.112 904 290C904 383.888 827.888 460 734 460C640.112 460 564 383.888 564 290Z" fill="#fddf19" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M120 734C120 640.112 196.112 564 290 564C383.888 564 460 640.112 460 734C460 827.888 383.888 904 290 904C196.112 904 120 827.888 120 734Z" fill="#3e68ff" fill-rule="nonzero" opacity="1" stroke="none"/>
+<path d="M564 734.003C564 640.114 640.112 564.003 734 564.003C827.888 564.003 904 640.114 904 734.003C904 827.891 827.888 904.003 734 904.003C640.112 904.003 564 827.891 564 734.003Z" fill="#e94420" fill-rule="nonzero" opacity="1" stroke="none"/>
+</g>
+</svg>
